@@ -1,6 +1,8 @@
 package org.example.mymap;
 
 import android.os.Bundle;
+import android.util.Log;
+
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
@@ -20,21 +22,23 @@ public class MyMap extends MapActivity {
 
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
 	private void initMapView() {
 		map = (MapView) findViewById(R.id.map);
+		if (map == null) {
+			Log.d("ERROR", "MapView je null");
+		}
 		controller = map.getController();
-		map.setSatellite(true);
+		map.setSatellite(false);
 		map.setBuiltInZoomControls(true);
 	}
 	
 	private void initMyLocation() {
 		final MyLocationOverlay overlay = new MyLocationOverlay(this, map);
 		overlay.enableMyLocation();
-		//overlay.enableCompass();
+		overlay.enableCompass();
 		overlay.runOnFirstFix(new Runnable() {
 
 			@Override
